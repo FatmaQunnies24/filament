@@ -17,14 +17,14 @@ class Product extends Model
         'is_active',
         'image',
         'category_id',
-    ];  
+    ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
-    public function orders()
+    public function orderProducts() 
     {
-        return $this->belongsToMany(Order::class, 'order_product') ;
+        return $this->hasMany(OrderProduct::class);
     }
 }

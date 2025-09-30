@@ -15,6 +15,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class CustomerResource extends Resource
 {
@@ -24,7 +26,25 @@ class CustomerResource extends Resource
     protected static string|\UnitEnum|null $navigationGroup = 'Customer';
 
 
-    protected static ?string $recordTitleAttribute = 'Customer';
+    protected static ?string $recordTitleAttribute = 'name';
+    protected static int $globalSearchResultsLimit = 5;
+    
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'id'];
+    }
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+         return [
+            'name' => $record->name ?? '',
+
+        ];
+    }
+    public static function getGlobalSearchEloquentQuery(): Builder
+    {
+return parent::getGlobalSearchEloquentQuery()->with(['orders']);
+    }
 
     public static function form(Schema $schema): Schema
     {

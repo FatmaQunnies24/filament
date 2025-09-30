@@ -20,7 +20,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-
+use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -33,11 +33,15 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Slate,
             ])
-            ->globalSearchKeyBindings(['command+k','ctrl+k'])
+            // ->globalSearchKeyBindings(['command+k','ctrl+k'])
             ->favicon('storage/favicon.jpg')
             // ->darkMode(false)
         ->sidebarFullyCollapsibleOnDesktop()
-        ->navigationItems([
+            ->plugins([
+                SpotlightPlugin::make()
+            ])
+
+            ->navigationItems([
             NavigationItem::make('product')
                 ->url('/admin/products', shouldOpenInNewTab: true)
                 ->icon('heroicon-o-pencil-square')

@@ -23,67 +23,67 @@ class ProductForm
                     ->schema([
                         Section::make('Basic Information')
                             ->schema([
-                            TextInput::make('name')
-    ->required()
-    ->label('Product Name')
-    ->live()
-    ->afterStateUpdated(function ($state, $set) {
+                                TextInput::make('name')
+                                    ->required()
+                                    ->label('Product Name')
+                                    ->live()
+                                    ->afterStateUpdated(function ($state, $set) {
 
-        $set('slug', Str::slug($state));
-    }),
+                                        $set('slug', Str::slug($state));
+                                    }),
 
-TextInput::make('slug')
-    ->disabled()
-    ->label('Slug'),
+                                TextInput::make('slug')
+                                    ->disabled()
+                                    ->label('Slug'),
 
                                 MarkdownEditor::make('description')
                                     ->label('Description')
                                     ->columnSpanFull(),
                             ])
                             ->columns(1),
-                ]),
-            Group::make()->schema([
-                        Section::make('Details')
-                            ->schema([
-                                TextInput::make('price')
-                                    ->required()
-                                    ->numeric()
-                                    ->prefix('$'),
-
-                                TextInput::make('quantity')
-                                    ->required()
-                                    ->numeric()
-                                    ->default(0),
-
-                                TextInput::make('sku')
-                                    ->label('SKU'),
-
-                                Toggle::make('is_active')
-                                    ->label('Active')
-                                    ->default(true),
-                            ])
-                            ->columns(2),
                     ]),
-            Group::make()
-                ->schema([
-                    Section::make('Basic Information')
+                Group::make()->schema([
+                    Section::make('Details')
                         ->schema([
-                    FileUpload::make('image')
-                        ->label('Product Image')
-                        ->image()
-                        ->directory('products')
-                        ->nullable(),
+                            TextInput::make('price')
+                                ->required()
+                                ->numeric()
+                                ->prefix('$'),
 
-                    Select::make('category_id')
-                        ->label('Category')
-                        ->relationship('category', 'name')
-                        ->searchable()
-                        ->required(),
+                            TextInput::make('quantity')
+                                ->required()
+                                ->numeric()
+                                ->default(0),
 
+                            TextInput::make('sku')
+                                ->label('SKU'),
 
-                ])
-                        ->columns(1),
+                            Toggle::make('is_active')
+                                ->label('Active')
+                                ->default(true),
+                        ])
+                        ->columns(2),
                 ]),
+                Group::make()
+                    ->schema([
+                        Section::make('Basic Information')
+                            ->schema([
+                                FileUpload::make('image')
+                                    ->label('Product Image')
+                                    ->image()
+                                    ->directory('products')
+                                    ->nullable(),
+
+                                Select::make('category_id')
+                                    ->label('Category')
+                                    ->relationship('category', 'name')
+                                    ->searchable()
+                                    // ->required(),
+
+
+                            ])
+                            ->columns(1),
+                    ]),
             ]);
     }
 }

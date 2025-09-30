@@ -41,13 +41,13 @@ class AdminPanelProvider extends PanelProvider
                 SpotlightPlugin::make()
             ])
 
-            ->navigationItems([
-            NavigationItem::make('product')
-                ->url('/admin/products', shouldOpenInNewTab: true)
-                ->icon('heroicon-o-pencil-square')
-                // ->visible(fn(): bool => \Illuminate\Support\Facades\Auth::user()?->can('view') ?? false)
-        ]
-        )
+        //     ->navigationItems([
+        //     NavigationItem::make('product')
+        //         ->url('/admin/products', shouldOpenInNewTab: true)
+        //         ->icon('heroicon-o-pencil-square')
+        //         // ->visible(fn(): bool => \Illuminate\Support\Facades\Auth::user()?->can('view') ?? false)
+        // ]
+        // )
         ->userMenuItems([
 
             MenuItem::make()->label('order')

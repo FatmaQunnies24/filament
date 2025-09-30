@@ -6,6 +6,8 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -34,6 +36,20 @@ class AdminPanelProvider extends PanelProvider
             ->globalSearchKeyBindings(['command+k','ctrl+k'])
             ->favicon('storage/favicon.jpg')
             // ->darkMode(false)
+        ->sidebarFullyCollapsibleOnDesktop()
+        ->navigationItems([
+            NavigationItem::make('product')
+                ->url('/admin/products', shouldOpenInNewTab: true)
+                ->icon('heroicon-o-pencil-square')
+                // ->visible(fn(): bool => \Illuminate\Support\Facades\Auth::user()?->can('view') ?? false)
+        ]
+        )
+        ->userMenuItems([
+
+            MenuItem::make()->label('order')
+                ->url('/admin/products', shouldOpenInNewTab: true)
+                ->icon('heroicon-o-pencil-square')
+        ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

@@ -41,7 +41,10 @@ class OrderResource extends Resource
             //
         ];
     }
-
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('status',  'processing')->count();
+    }
     public static function getPages(): array
     {
         return [
